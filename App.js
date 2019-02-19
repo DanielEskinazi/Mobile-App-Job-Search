@@ -29,7 +29,26 @@ const MainNavigator = createBottomTabNavigator({
 });
 
 
+class App extends React.Component {
+  render() {
+    
+    return(
+      <Provider store={store}>
+        <View> style={styles.container}
+          <MainNavigator />
+        </View>
+      </Provider>
+    )
 
-const App = createAppContainer(MainNavigator);
+  }
+}
 
-export default App;
+
+
+const styles = StyleSheet.create ({
+  container: {
+    flex: 1
+  }
+})
+
+export default createAppContainer(MainNavigator);
