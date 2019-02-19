@@ -8,16 +8,17 @@ import {
 } from "react-navigation";
 
 import AuthScreen from "../screens/AuthScreen";
-import HomeScreen from "../screens/WelcomeScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import DeckScreen from "../screens/DeckScreen";
 import MapScreen from "../screens/MapScreen";
 import ReviewScreen from "../screens/ReviewScreen";
+import WelcomeScreen from "../screens/WelcomeScreen";
 
 const AppNavigator = createBottomTabNavigator({
-  home: { screen: HomeScreen },
-  auth: { screen: AuthScreen },
+  welcome: { screen: WelcomeScreen, navigationOptions: { tabBarVisible: false }},
+  auth: { screen: AuthScreen, navigationOptions: { tabBarVisible: false } },
   main: {
+    navigationOptions: { tabBarVisible: false },
     screen: createBottomTabNavigator({
       map: { screen: MapScreen },
       deck: { screen: DeckScreen },
@@ -29,7 +30,16 @@ const AppNavigator = createBottomTabNavigator({
       }
     })
   }
+
+  
+}, {
+    navigationOptions: { 
+        tabBarVisible: false
+    },
+    lazy: true
 });
+
+
 
 const AppContainer = createAppContainer(AppNavigator);
 
