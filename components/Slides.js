@@ -62,7 +62,8 @@ const styles = {
     },
     textStyle: {
         fontSize: 30,
-        color: 'white'
+        color: 'white',
+        justifyContent: 'center'
     },
     buttonStyle: {
         backgroundColor: '#0288d1'

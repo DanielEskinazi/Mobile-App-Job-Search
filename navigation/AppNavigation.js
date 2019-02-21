@@ -20,12 +20,12 @@ const AppNavigator = createBottomTabNavigator({
   main: {
     navigationOptions: { tabBarVisible: false },
     screen: createBottomTabNavigator({
-      map: { screen: MapScreen },
-      deck: { screen: DeckScreen },
+      map: { screen: MapScreen, navigationOptions: { tabBarVisible: true } },
+      deck: { screen: DeckScreen, navigationOptions: { tabBarVisible: true } },
       review: {
         screen: createStackNavigator({
-          review: { screen: ReviewScreen },
-          settings: { screen: SettingsScreen }
+          review: { screen: ReviewScreen, navigationOptions: { tabBarVisible: true } },
+          settings: { screen: SettingsScreen, navigationOptions: { tabBarVisible: true } }
         })
       }
     })

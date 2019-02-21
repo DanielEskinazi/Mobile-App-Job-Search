@@ -4,15 +4,17 @@ import Slides from '../components/Slides';
 
 const SLIDE_DATA = [
     {
-        text: 'Welcome to JobApp',
+        text: 'Welcome to PetMate',
         color: "#FAC484"
+         
     },
     {
-        text: 'Use this to find the perfect Job!',
+        text: 'Find a match for your Pet!',
         color: "#FBD786"
+        
     },
     {
-        text: 'Set your location, then swipe away!',
+        text: '1) Set your profile\n2) Find local matches\n3) Set a date to PetMate!',
         color: "#f7797d"
     }
 ];
