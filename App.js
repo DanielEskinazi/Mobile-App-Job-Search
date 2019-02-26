@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 
 import AppNavigation from './navigation/AppNavigation';
 import store from './store';
+
 import AuthScreen from './screens/AuthScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import Mapscreen from './screens/MapScreen';
