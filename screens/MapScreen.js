@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
-import { MapView } from 'expo';
+import { MapView, Permissions } from 'expo';
+import { connect } from 'react-redux';
+import { Button, Icon } from 'react-native-elements';
+
+import RoundButton from '../components/round_button';
+
+import * as actions from '../actions';
 
 class MapScreen extends Component {
 
@@ -14,13 +20,22 @@ class MapScreen extends Component {
         }
     }
 
-    componentDidMount() {
-        this.setState({ mapLoaded: true })
+    async componentDidMount() {
+       
+        await Permissions.askAsync(Permissions.LOCATION);
+        
+       this.setState({ mapLoaded: true })
     }
 
     onRegionChangeComplete = (region) => {
-        console.log(region)
+        //console.log(region)
         this.setState({ region }); 
+    }
+
+    onButtonPress = () => {
+        this.props.fetchJobs(this.state.region, () => {
+            this.props.navigation.navigate('deck');
+        });
     }
 
     render() { 
@@ -38,9 +53,27 @@ class MapScreen extends Component {
                 style={{ flex: 1 }} 
                 onRegionChangeComplete={this.onRegionChangeComplete}
                 />
+                <View  style={styles.buttonContainer} >
+                    <Button 
+                        large
+                        type="outline"
+                        title="Search This Area"
+                        icon={{ name: 'search' }}
+                        onPress={this.onButtonPress}
+                    />
+                </View>
             </View>
         )
     }
 }
 
-export default MapScreen;
+const styles = {
+    buttonContainer: {
+        position: 'relative', //change to absolute to make it clear 
+        bottom: 0,
+        left: 0,
+        right: 0
+    }
+}
+
+export default connect(null, actions)(MapScreen);
