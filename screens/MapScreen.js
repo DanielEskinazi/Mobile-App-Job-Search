@@ -28,11 +28,14 @@ class MapScreen extends Component {
     }
 
     onRegionChangeComplete = (region) => {
-        //console.log(region)
+        console.log("Region change...")
+        console.log(region)
         this.setState({ region }); 
     }
 
     onButtonPress = () => {
+        console.log("======= THIS.STATE.REGION: ")
+        console.log(this.state.region)
         this.props.fetchJobs(this.state.region, () => {
             this.props.navigation.navigate('deck');
         });
@@ -69,10 +72,12 @@ class MapScreen extends Component {
 
 const styles = {
     buttonContainer: {
-        position: 'relative', //change to absolute to make it clear 
-        bottom: 0,
+        position: 'absolute', //change to absolute to make it clear , Relative to show
+        margin: 0,
         left: 0,
-        right: 0
+        right: 0,
+        marginBottom: 10,
+        marginTop: 30
     }
 }
 

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Icon } from 'react-native-elements';
 import * as actions from "../actions";
 import {
   createBottomTabNavigator,
@@ -20,18 +21,44 @@ const AppNavigator = createBottomTabNavigator({
   main: {
     navigationOptions: { tabBarVisible: false },
     screen: createBottomTabNavigator({
-      map: { screen: MapScreen, navigationOptions: { tabBarVisible: true } },
-      deck: { screen: DeckScreen, navigationOptions: { tabBarVisible: true } },
-      review: {
+      map: { 
+        screen: MapScreen, 
+        navigationOptions: { 
+          tabBarVisible: true, 
+          title: 'Map', 
+          tabBarIcon: ({ focused, tintColor }) => {
+            return <Icon name="my-location" size={30} color={tintColor} />
+          }
+        } 
+      },
+      deck: { 
+        screen: DeckScreen, 
+        navigationOptions: { 
+          tabBarVisible: true, 
+          title: 'Jobs', 
+          tabBarIcon: ({ focused, tintColor }) => {
+            return <Icon name="description" size={30} color={tintColor} />
+          }
+        } 
+      },
+      review:{
+        navigationOptions: {
+          title: 'Review Jobs',
+          tabBarIcon: ({ tintColor }) => {
+            return (<Icon name='favorite' size={30} color={tintColor} />)
+          }
+        },
         screen: createStackNavigator({
-          review: { screen: ReviewScreen, navigationOptions: { tabBarVisible: true } },
+          review: { screen: ReviewScreen },
           settings: { screen: SettingsScreen, navigationOptions: { tabBarVisible: true } }
         })
       }
+    }, {
+      tabBarOptions: {
+        labelStyle: { fontSize: 12 }
+      }
     })
   }
-
-  
 }, {
     navigationOptions: { 
         tabBarVisible: false

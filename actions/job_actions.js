@@ -6,7 +6,9 @@ import qs from 'qs';
 import JOB_DATA from './IndeedJobData.json';
 
 import {
-    FETCH_JOBS
+    FETCH_JOBS,
+    LIKE_JOB,
+    CLEAR_LIKED_JOBS
 } from './types'
 
 const JOB_ROOT_URL = 'https://authenticjobs.com/api/?';
@@ -24,7 +26,15 @@ const buildJobsUrl = (zip) => {
 
 export const fetchJobs = (region, callback) => async (dispatch) => {
     try {
-        let zip = await Location.reverseGeocodeAsync(region);
+        console.log("fetchJobs (region):")
+        console.log(region)
+        let res = await Location.reverseGeocodeAsync(region);
+        console.log("res: ");
+        console.log(res)
+        const zip = res[0].postalCode;
+        console.log("zip: ");
+        console.log(zip)
+
         const url = buildJobsUrl(zip);
         console.log("\n ============== URL:" + url + " ==================\n");
         let { data } = await axios.get(url);
@@ -36,3 +46,14 @@ export const fetchJobs = (region, callback) => async (dispatch) => {
         console.log(err);
     }
 };
+
+export const likeJob = (job) => {
+    return {
+        payload: job,
+        type: LIKE_JOB
+    };
+};
+
+export const clearLikedJobs = () => {
+    return  { type: CLEAR_LIKED_JOBS };
+}

@@ -6,17 +6,24 @@ import {
   PanResponder,
   Dimensions,
   LayoutAnimation,
-  UIManager
+  UIManager,
+  Platform
 } from 'react-native';
+import { connect } from 'react-redux';
+import store from '../store';
+import * as actions from '../actions';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
-const SWIPE_THRESHOLD = SCREEN_WIDTH * 0.25;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+const SWIPE_THRESHOLD = SCREEN_WIDTH * 0.15;
 const SWIPE_OUT_DURATION = 250;
 
 class Swipe extends Component {
   static defaultProps = {
+    data: [],
     onSwipeRight: () => {},
-    onSwipeLeft: () => {}
+    onSwipeLeft: () => {},
+    id: 'id'
   }
 
   constructor(props) {
@@ -55,6 +62,16 @@ class Swipe extends Component {
     LayoutAnimation.spring();
   }
 
+
+  forceSwipe(direction) {
+    const x = direction === 'right' ? SCREEN_WIDTH : -SCREEN_WIDTH;
+    Animated.timing(this.state.position, {
+      toValue: { x, y: 0 },
+      duration: SWIPE_OUT_DURATION
+    }).start(() => this.onSwipeComplete(direction));
+  }
+
+  
   onSwipeComplete(direction) {
     const { onSwipeLeft, onSwipeRight, data } = this.props;
     const item = data[this.state.index];
@@ -77,14 +94,6 @@ class Swipe extends Component {
     };
   }
 
-  forceSwipe(direction) {
-    const x = direction === 'right' ? SCREEN_WIDTH : -SCREEN_WIDTH;
-    Animated.timing(this.state.position, {
-      toValue: { x, y: 0 },
-      duration: SWIPE_OUT_DURATION
-    }).start(() => this.onSwipeComplete(direction));
-  }
-
   resetPosition() {
     Animated.spring(this.state.position, {
       toValue: { x: 0, y: 0 }
@@ -98,12 +107,36 @@ class Swipe extends Component {
 
     return this.props.data.map((item, i) => {
       if (i < this.state.index) { return null; }
+      
+     // console.log("Swipe>renderCards()>item:")
+      
+        const { company } = item;
+        console.log("SWIPE > renderCards > COMPANY:")
+        console.log(company);
+
+        if(company.location !== undefined){
+          var final_location_given = company.location.name;
+        } else {
+          var final_location_given = company.name;
+        }
+        // console.log("final_location_given = " + final_location_given)
+
+        // this.props.fetchGeolocation(final_location_given)
+        //   .then(function(result){
+        //     console.log("Fetch Geolocation Result: ")
+        //     console.log(result)
+        //   })
+        //   .catch(function (err) {
+        //     console.log(err)
+        //   });
+
+      //  const lat = this.state.maps.latitude;
 
       if (i === this.state.index) {
           return (
             <Animated.View
             key={item.id}
-            style={[this.getCardStyle(), styles.cardStyle, { zIndex: i * -1 }]}
+            style={[this.getCardStyle(), styles.cardStyle, { zIndex: 99}]}
             {...this.state.panResponder.panHandlers}
             >
               {this.props.renderCard(item)}
@@ -113,17 +146,14 @@ class Swipe extends Component {
 
       return (
         <Animated.View
-        key={item.id}
-        style={[
-          styles.cardStyle,
-          { zIndex: i * -1 },
-          { top: 10 * (i - this.state.index) }
-        ]}
-        >
+          key={item.id}
+          style={[ styles.cardStyle, { top: 10 * (i - this.state.index), zIndex: 5 }]}
+          >
           {this.props.renderCard(item)}
         </Animated.View>
       );
-    });
+    }).reverse();
+    // return Platform.OS === 'android' ? deck : deck.reverse();
   }
 
   render() {
@@ -142,4 +172,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Swipe;
+function mapStateToProps ({ maps }){
+  return { maps };
+}
+
+export default connect(mapStateToProps, actions)(Swipe);
