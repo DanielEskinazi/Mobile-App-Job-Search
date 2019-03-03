@@ -1,24 +1,20 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { createBottomTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
+import { StyleSheet} from 'react-native';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/es/integration/react';
+import configureStore from './store'
 
 import AppNavigation from './navigation/AppNavigation';
-import store from './store';
-
-import AuthScreen from './screens/AuthScreen';
-import WelcomeScreen from './screens/WelcomeScreen';
-import Mapscreen from './screens/MapScreen';
-import DeckScreen from './screens/DeckScreen';
-import SettingsScreen from './screens/SettingsScreen';
-import ReviewScreen from './screens/ReviewScreen';
-
+//import store from './store';
 
 class App extends React.Component {
   render() {
+    const { persistor, store } = configureStore();
     return(
       <Provider store={store}>
-        <AppNavigation />
+        <PersistGate persistor={persistor}>
+          <AppNavigation />
+        </PersistGate>
       </Provider>
     )
 
