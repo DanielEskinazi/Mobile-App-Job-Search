@@ -172,8 +172,4 @@ const styles = StyleSheet.create({
   }
 });
 
-// function mapStateToProps ({ maps }){
-//   return { maps };
-// }
-
 export default connect(null, actions)(Swipe);
