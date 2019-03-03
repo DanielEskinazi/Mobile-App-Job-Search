@@ -33,7 +33,7 @@ export const fetchJobs = (region, callback) => async (dispatch) => {
         console.log(res)
         const zip = res[0].postalCode;
         console.log("zip: ");
-        console.log(zip)
+        console.log(zip)    
 
         const url = buildJobsUrl(zip);
         console.log("\n ============== URL:" + url + " ==================\n");

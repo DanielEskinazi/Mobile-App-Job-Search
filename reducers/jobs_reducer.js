@@ -3,7 +3,9 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-    results: []
+    listings: {
+        listing: []
+    }
 };
 
 export default function(state = INITIAL_STATE, action) {

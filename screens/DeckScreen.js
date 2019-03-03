@@ -70,7 +70,7 @@ class DeckScreen extends Component {
             <View style={{ margintop: 15, marginBottom: 15, width: SCREEN_WIDTH, height: SCREEN_HEIGHT }}> 
                 <Swipe 
                     style={{margintop: 10 }}
-                    data={this.props.job}
+                    data={this.props.jobs.listings.listing}
                     renderCard={this.renderCard}
                     renderNoMoreCards={this.renderNoMoreCards}
                     onSwipeRight={job => this.props.likeJob(job)}
@@ -91,13 +91,13 @@ const styles = {
 
 
 function mapStateToProps({ jobs }) {
-    console.log("Jobs: ")
-    console.log(jobs)
-    console.log(jobs.listings)
-    const { listings } = jobs;
-    const { listing }  = listings;
+  //  console.log("Jobs: ")
+ //   console.log(jobs)
+  //  console.log(jobs.listings)
+    // const { listings } = jobs;
+    // const { listing }  = listings;
     
-    return { job: listing}
+    return { jobs: jobs }
 }
 
 export default connect(mapStateToProps, actions)(DeckScreen);

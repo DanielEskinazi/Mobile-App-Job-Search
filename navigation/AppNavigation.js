@@ -54,6 +54,7 @@ const AppNavigator = createBottomTabNavigator({
         })
       }
     }, {
+      tabBarPosition: 'bottom',
       tabBarOptions: {
         labelStyle: { fontSize: 12 }
       }

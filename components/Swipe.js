@@ -110,15 +110,15 @@ class Swipe extends Component {
       
      // console.log("Swipe>renderCards()>item:")
       
-        const { company } = item;
-        console.log("SWIPE > renderCards > COMPANY:")
-        console.log(company);
+        // const { company } = item;
+        // console.log("SWIPE > renderCards > COMPANY:")
+        // console.log(company);
 
-        if(company.location !== undefined){
-          var final_location_given = company.location.name;
-        } else {
-          var final_location_given = company.name;
-        }
+        // if(company.location !== undefined){
+        //   var final_location_given = company.location.name;
+        // } else {
+        //   var final_location_given = company.name;
+        // }
         // console.log("final_location_given = " + final_location_given)
 
         // this.props.fetchGeolocation(final_location_given)
@@ -172,8 +172,8 @@ const styles = StyleSheet.create({
   }
 });
 
-function mapStateToProps ({ maps }){
-  return { maps };
-}
+// function mapStateToProps ({ maps }){
+//   return { maps };
+// }
 
-export default connect(mapStateToProps, actions)(Swipe);
+export default connect(null, actions)(Swipe);

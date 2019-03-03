@@ -5,6 +5,8 @@ import { clearLikedJobs } from '../actions';
 import { Button } from 'react-native-elements';
 
 class SettingsScreen extends Component {
+
+
     render() {
         return (
             <View>
@@ -14,6 +16,7 @@ class SettingsScreen extends Component {
                     icon={{ name: 'delete' }}
                     backgroundColor="#f44336"
                     onPress={this.props.clearLikedJobs}
+                    style={{ marginTop: 30 }}
                 />
             </View>
         )
